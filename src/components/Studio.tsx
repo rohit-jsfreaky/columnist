@@ -1,5 +1,6 @@
 "use client";
 
+import { renderLocal } from "@/lib/render-local";
 import NextLink from "next/link";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { AlertTriangle, ArrowLeft, Download01, FileCheck02, SwitchHorizontal01, Image01, Mail01, Minus, Plus, SearchSm, Upload01, XClose } from "@untitledui/icons";
@@ -550,7 +551,7 @@ function Sheet({ out, setOut, values, onClose }: { out: Out; setOut: (o: Out) =>
   useEffect(() => {
     let alive = true;
     const t = setTimeout(async () => {
-      const res = await fetch("/api/render", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ output: out, values }) });
+      const res = await renderLocal({ method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ output: out, values }) });
       const type = res.headers.get("Content-Type") ?? "";
       const next = type.includes("json")
         ? await res.json().then((j) => (res.ok ? { html: j.html as string } : { issues: (j.diagnostics ?? [{ message: j.error }]).map((d: { message: string; path?: string }) => `${d.path ? `${d.path.replace(/^values\./, "")}: ` : ""}${d.message}`) }))
@@ -569,7 +570,7 @@ function Sheet({ out, setOut, values, onClose }: { out: Out; setOut: (o: Out) =>
   }, [out, key]);
 
   async function download() {
-    const res = await fetch("/api/render", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ output: out, values }) });
+    const res = await renderLocal({ method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ output: out, values }) });
     if (!res.ok) return;
     const a = document.createElement("a");
     a.href = out === "changes" ? URL.createObjectURL(new Blob([(await res.json()).html], { type: "text/html" })) : URL.createObjectURL(await res.blob());

@@ -1,8 +1,6 @@
 // Renders a schema's values with the same Hyper Elements templates the CLI uses (templates/*.tsx).
 // POST { output: "dictionary" | "changes" | "diagram", values } -> a PDF, a PNG, or { html, text }.
 // Values a template refuses come back as 422 with the template's own diagnostics.
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { createElement } from "react";
 import { ElementsError, render } from "@hyper-elements/react";
 import { renderImage } from "@hyper-elements/react/image";
@@ -10,6 +8,20 @@ import { renderPdf } from "@hyper-elements/react/pdf";
 import Changes from "@templates/changes";
 import Diagram from "@templates/diagram";
 import Dictionary from "@templates/dictionary";
+
+// In the browser: fonts and the resvg WebAssembly come from /public; Buffer (used for base64) from the buffer package.
+let ready: Promise<void> | undefined;
+async function fontFile(file: string) {
+  ready ??= (async () => {
+    const { Buffer } = await import("buffer");
+    (globalThis as { Buffer?: unknown }).Buffer ??= Buffer;
+    const { initWasm } = await import("@resvg/resvg-wasm");
+    await initWasm(fetch("/resvg.wasm"));
+  })();
+  await ready;
+  return new Uint8Array(await (await fetch(`/fonts/${file}`)).arrayBuffer());
+}
+
 
 type Diagnostic = { severity: string; code: string; message: string; path?: string };
 
@@ -24,10 +36,10 @@ const FONT_FILES: Array<[string, string, number, ("italic" | undefined)?]> = [
   ["IBM Plex Mono", "IBMPlexMono-Regular.ttf", 400],
   ["IBM Plex Mono", "IBMPlexMono-Medium.ttf", 500],
 ];
-let fonts: Promise<Array<{ family: string; src: Buffer; weight: number; style?: "italic" }>> | undefined;
+let fonts: Promise<Array<{ family: string; src: Uint8Array; weight: number; style?: "italic" }>> | undefined;
 const loadFonts = () =>
   (fonts ??= Promise.all(
-    FONT_FILES.map(async ([family, file, weight, style]) => ({ family, weight, ...(style ? { style } : {}), src: await readFile(join(process.cwd(), "fonts", file)) })),
+    FONT_FILES.map(async ([family, file, weight, style]) => ({ family, weight, ...(style ? { style } : {}), src: await fontFile(file) })),
   ));
 
 const brief = (list: readonly unknown[] = []): Diagnostic[] =>
