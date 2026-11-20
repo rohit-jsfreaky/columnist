@@ -1,0 +1,2128 @@
+{
+  "version": 1,
+  "template": {
+    "module": "../templates/diagram.tsx",
+    "id": "columnist.Diagram",
+    "version": "1.0.0",
+    "sha256": "1d42fe1927aba85f0622a8ab519f57fd58ead7ae733517dde6140fd471c70a89"
+  },
+  "formats": [
+    "wide"
+  ],
+  "values": {
+    "project": "Umami",
+    "version": "v3.5.0",
+    "source": "prisma/schema.prisma",
+    "dialect": "prisma",
+    "date": "2026-11-19",
+    "owner": "Platform team, Northwind Labs",
+    "tables": [
+      {
+        "name": "annotation",
+        "alias": "Annotation",
+        "indexes": 1,
+        "columns": [
+          {
+            "name": "annotation_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "website.website_id"
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "date",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "all_day",
+            "alias": "allDay",
+            "type": "Boolean",
+            "nullable": false,
+            "default": "true",
+            "unique": false
+          },
+          {
+            "name": "note",
+            "type": "varchar(500)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "api_key",
+        "alias": "ApiKey",
+        "indexes": 1,
+        "columns": [
+          {
+            "name": "api_key_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "name",
+            "type": "varchar(255)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "key_hash",
+            "alias": "keyHash",
+            "type": "varchar(128)",
+            "nullable": false,
+            "unique": true
+          },
+          {
+            "name": "key_prefix",
+            "alias": "keyPrefix",
+            "type": "varchar(20)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "last_used_at",
+            "alias": "lastUsedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "app_setting",
+        "alias": "AppSetting",
+        "indexes": 0,
+        "columns": [
+          {
+            "name": "key",
+            "type": "String",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "value",
+            "type": "String",
+            "nullable": false,
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "board",
+        "alias": "Board",
+        "indexes": 3,
+        "columns": [
+          {
+            "name": "board_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "type",
+            "type": "varchar(50)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "name",
+            "type": "varchar(200)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "description",
+            "type": "varchar(500)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "parameters",
+            "type": "Json",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": true,
+            "key": "fk",
+            "unique": false,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "team_id",
+            "alias": "teamId",
+            "type": "uuid",
+            "nullable": true,
+            "key": "fk",
+            "unique": false,
+            "ref": "team.team_id"
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "error_event",
+        "alias": "ErrorEvent",
+        "note": "One browser error as it happened: message, stack, page, release and device.",
+        "indexes": 2,
+        "columns": [
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "event_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "issue_id",
+            "alias": "issueId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "session_id",
+            "alias": "sessionId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "visit_id",
+            "alias": "visitId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "received_at",
+            "alias": "receivedAt",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "name",
+            "type": "varchar(200)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "message",
+            "type": "varchar(2000)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "stack",
+            "type": "text",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "frames",
+            "type": "Json",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "tags",
+            "type": "Json",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "handled",
+            "type": "Boolean",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "url_path",
+            "alias": "urlPath",
+            "type": "varchar(500)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "release",
+            "type": "varchar(100)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "environment",
+            "type": "varchar(50)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "browser",
+            "type": "varchar(50)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "os",
+            "type": "varchar(50)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "device",
+            "type": "varchar(50)",
+            "nullable": false,
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "error_issue",
+        "alias": "ErrorIssue",
+        "note": "Browser errors grouped by fingerprint, so the same error is one issue.",
+        "indexes": 2,
+        "columns": [
+          {
+            "name": "issue_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "fingerprint",
+            "type": "varchar(64)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "grouping_version",
+            "alias": "groupingVersion",
+            "type": "Int",
+            "nullable": false,
+            "default": "1",
+            "unique": false
+          },
+          {
+            "name": "title",
+            "type": "varchar(2200)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "status",
+            "type": "varchar(20)",
+            "nullable": false,
+            "default": "\"unresolved\"",
+            "unique": false,
+            "note": "Starts as \"unresolved\"."
+          },
+          {
+            "name": "resolved_at",
+            "alias": "resolvedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "default": "now()",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "error_rate_limit",
+        "alias": "ErrorRateLimit",
+        "indexes": 0,
+        "columns": [
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "bucket",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "count",
+            "type": "Int",
+            "nullable": false,
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "event_data",
+        "alias": "EventData",
+        "indexes": 5,
+        "columns": [
+          {
+            "name": "event_data_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "website.website_id"
+          },
+          {
+            "name": "website_event_id",
+            "alias": "websiteEventId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "website_event.event_id"
+          },
+          {
+            "name": "data_key",
+            "alias": "dataKey",
+            "type": "varchar(500)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "string_value",
+            "alias": "stringValue",
+            "type": "varchar(500)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "number_value",
+            "alias": "numberValue",
+            "type": "decimal(19, 4)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "date_value",
+            "alias": "dateValue",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "data_type",
+            "alias": "dataType",
+            "type": "integer",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "heatmap_event",
+        "alias": "HeatmapEvent",
+        "indexes": 4,
+        "columns": [
+          {
+            "name": "heatmap_event_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "website.website_id"
+          },
+          {
+            "name": "session_id",
+            "alias": "sessionId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "visit_id",
+            "alias": "visitId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "url_path",
+            "alias": "urlPath",
+            "type": "varchar(500)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "event_type",
+            "alias": "eventType",
+            "type": "integer",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "x",
+            "type": "integer",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "y",
+            "type": "integer",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "page_x",
+            "alias": "pageX",
+            "type": "integer",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "page_y",
+            "alias": "pageY",
+            "type": "integer",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "page_w",
+            "alias": "pageW",
+            "type": "integer",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "viewport_w",
+            "alias": "viewportW",
+            "type": "integer",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "viewport_h",
+            "alias": "viewportH",
+            "type": "integer",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "page_h",
+            "alias": "pageH",
+            "type": "integer",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "scroll_pct",
+            "alias": "scrollPct",
+            "type": "integer",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "default": "now()",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "link",
+        "alias": "Link",
+        "indexes": 4,
+        "columns": [
+          {
+            "name": "link_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "name",
+            "type": "varchar(100)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "url",
+            "type": "varchar(500)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "slug",
+            "type": "varchar(100)",
+            "nullable": false,
+            "unique": true
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": true,
+            "key": "fk",
+            "unique": false,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "team_id",
+            "alias": "teamId",
+            "type": "uuid",
+            "nullable": true,
+            "key": "fk",
+            "unique": false,
+            "ref": "team.team_id"
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          },
+          {
+            "name": "deleted_at",
+            "alias": "deletedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "pixel",
+        "alias": "Pixel",
+        "indexes": 4,
+        "columns": [
+          {
+            "name": "pixel_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "name",
+            "type": "varchar(100)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "slug",
+            "type": "varchar(100)",
+            "nullable": false,
+            "unique": true
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": true,
+            "key": "fk",
+            "unique": false,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "team_id",
+            "alias": "teamId",
+            "type": "uuid",
+            "nullable": true,
+            "key": "fk",
+            "unique": false,
+            "ref": "team.team_id"
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          },
+          {
+            "name": "deleted_at",
+            "alias": "deletedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "report",
+        "alias": "Report",
+        "indexes": 4,
+        "columns": [
+          {
+            "name": "report_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "website.website_id"
+          },
+          {
+            "name": "type",
+            "type": "varchar(50)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "name",
+            "type": "varchar(200)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "description",
+            "type": "varchar(500)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "parameters",
+            "type": "Json",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "revenue",
+        "alias": "Revenue",
+        "indexes": 4,
+        "columns": [
+          {
+            "name": "revenue_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "website.website_id"
+          },
+          {
+            "name": "session_id",
+            "alias": "sessionId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "session.session_id"
+          },
+          {
+            "name": "event_id",
+            "alias": "eventId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "event_name",
+            "alias": "eventName",
+            "type": "varchar(50)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "currency",
+            "type": "varchar(10)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "revenue",
+            "type": "decimal(19, 4)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "segment",
+        "alias": "Segment",
+        "indexes": 1,
+        "columns": [
+          {
+            "name": "segment_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "website.website_id"
+          },
+          {
+            "name": "type",
+            "type": "varchar(50)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "name",
+            "type": "varchar(200)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "parameters",
+            "type": "Json",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "session",
+        "alias": "Session",
+        "note": "One visitor's session on a website, with the browser, OS, device, screen, language and location seen.",
+        "indexes": 11,
+        "columns": [
+          {
+            "name": "session_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "browser",
+            "type": "varchar(20)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "os",
+            "type": "varchar(20)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "device",
+            "type": "varchar(20)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "screen",
+            "type": "varchar(11)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "language",
+            "type": "varchar(35)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "country",
+            "type": "char(2)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "region",
+            "type": "varchar(20)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "city",
+            "type": "varchar(50)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "distinct_id",
+            "alias": "distinctId",
+            "type": "varchar(50)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "session_data",
+        "alias": "SessionData",
+        "indexes": 6,
+        "columns": [
+          {
+            "name": "session_data_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "website.website_id"
+          },
+          {
+            "name": "session_id",
+            "alias": "sessionId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "session.session_id"
+          },
+          {
+            "name": "data_key",
+            "alias": "dataKey",
+            "type": "varchar(500)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "string_value",
+            "alias": "stringValue",
+            "type": "varchar(500)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "number_value",
+            "alias": "numberValue",
+            "type": "decimal(19, 4)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "date_value",
+            "alias": "dateValue",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "data_type",
+            "alias": "dataType",
+            "type": "integer",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "distinct_id",
+            "alias": "distinctId",
+            "type": "varchar(50)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "session_link",
+        "alias": "SessionLink",
+        "indexes": 1,
+        "columns": [
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "session_id",
+            "alias": "sessionId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "distinct_id",
+            "alias": "distinctId",
+            "type": "varchar(50)",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "session_replay",
+        "alias": "SessionReplay",
+        "indexes": 7,
+        "columns": [
+          {
+            "name": "replay_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "website.website_id"
+          },
+          {
+            "name": "session_id",
+            "alias": "sessionId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "visit_id",
+            "alias": "visitId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "chunk_index",
+            "alias": "chunkIndex",
+            "type": "integer",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "events",
+            "type": "Bytes",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "event_count",
+            "alias": "eventCount",
+            "type": "integer",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "started_at",
+            "alias": "startedAt",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "ended_at",
+            "alias": "endedAt",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "session_replay_saved",
+        "alias": "SessionReplaySaved",
+        "indexes": 4,
+        "columns": [
+          {
+            "name": "saved_replay_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "name",
+            "type": "varchar(100)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "website.website_id"
+          },
+          {
+            "name": "visit_id",
+            "alias": "visitId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "share",
+        "alias": "Share",
+        "indexes": 1,
+        "columns": [
+          {
+            "name": "share_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "entity_id",
+            "alias": "entityId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "name",
+            "type": "varchar(200)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "share_type",
+            "alias": "shareType",
+            "type": "integer",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "slug",
+            "type": "varchar(100)",
+            "nullable": false,
+            "unique": true
+          },
+          {
+            "name": "parameters",
+            "type": "Json",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "team",
+        "alias": "Team",
+        "indexes": 1,
+        "columns": [
+          {
+            "name": "team_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "name",
+            "type": "varchar(50)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "access_code",
+            "alias": "accessCode",
+            "type": "varchar(50)",
+            "nullable": true,
+            "unique": true
+          },
+          {
+            "name": "logo_url",
+            "alias": "logoUrl",
+            "type": "varchar(2183)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "two_factor_required",
+            "alias": "twoFactorRequired",
+            "type": "Boolean",
+            "nullable": false,
+            "default": "false",
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          },
+          {
+            "name": "deleted_at",
+            "alias": "deletedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "team_user",
+        "alias": "TeamUser",
+        "indexes": 2,
+        "columns": [
+          {
+            "name": "team_user_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "team_id",
+            "alias": "teamId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "team.team_id"
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "role",
+            "type": "varchar(50)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "two_factor_auth",
+        "alias": "TwoFactorAuth",
+        "indexes": 0,
+        "columns": [
+          {
+            "name": "id",
+            "type": "String",
+            "nullable": false,
+            "default": "cuid()",
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": true,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "secret",
+            "type": "String",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "is_enabled",
+            "alias": "isEnabled",
+            "type": "Boolean",
+            "nullable": false,
+            "default": "false",
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "default": "updated by Prisma",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "two_factor_backup_code",
+        "alias": "TwoFactorBackupCode",
+        "indexes": 1,
+        "columns": [
+          {
+            "name": "id",
+            "type": "String",
+            "nullable": false,
+            "default": "cuid()",
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "code_hash",
+            "alias": "codeHash",
+            "type": "String",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "used",
+            "type": "Boolean",
+            "nullable": false,
+            "default": "false",
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "default": "now()",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "two_factor_otp_used",
+        "alias": "TwoFactorOtpUsed",
+        "indexes": 1,
+        "columns": [
+          {
+            "name": "id",
+            "type": "String",
+            "nullable": false,
+            "default": "cuid()",
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "otp",
+            "type": "String",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "expires_at",
+            "alias": "expiresAt",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "two_factor_rate_limit",
+        "alias": "TwoFactorRateLimit",
+        "indexes": 0,
+        "columns": [
+          {
+            "name": "id",
+            "type": "String",
+            "nullable": false,
+            "default": "cuid()",
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": true,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "attempts",
+            "type": "Int",
+            "nullable": false,
+            "default": "0",
+            "unique": false
+          },
+          {
+            "name": "locked_until",
+            "alias": "lockedUntil",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": false,
+            "default": "updated by Prisma",
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "user",
+        "alias": "User",
+        "indexes": 0,
+        "columns": [
+          {
+            "name": "user_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "username",
+            "type": "varchar(255)",
+            "nullable": false,
+            "unique": true
+          },
+          {
+            "name": "password",
+            "type": "varchar(60)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "role",
+            "type": "varchar(50)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "logo_url",
+            "alias": "logoUrl",
+            "type": "varchar(2183)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "display_name",
+            "alias": "displayName",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "two_factor_required",
+            "alias": "twoFactorRequired",
+            "type": "Boolean",
+            "nullable": false,
+            "default": "false",
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          },
+          {
+            "name": "deleted_at",
+            "alias": "deletedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "website",
+        "alias": "Website",
+        "note": "A site being tracked. Sessions, events and reports belong to a website.",
+        "indexes": 4,
+        "columns": [
+          {
+            "name": "website_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "name",
+            "type": "varchar(100)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "domain",
+            "type": "varchar(500)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "reset_at",
+            "alias": "resetAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "user_id",
+            "alias": "userId",
+            "type": "uuid",
+            "nullable": true,
+            "key": "fk",
+            "unique": false,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "team_id",
+            "alias": "teamId",
+            "type": "uuid",
+            "nullable": true,
+            "key": "fk",
+            "unique": false,
+            "ref": "team.team_id"
+          },
+          {
+            "name": "created_by",
+            "alias": "createdBy",
+            "type": "uuid",
+            "nullable": true,
+            "key": "fk",
+            "unique": false,
+            "ref": "user.user_id"
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "updated_at",
+            "alias": "updatedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "updated by Prisma",
+            "unique": false
+          },
+          {
+            "name": "deleted_at",
+            "alias": "deletedAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "recorder_enabled",
+            "alias": "recorderEnabled",
+            "type": "Boolean",
+            "nullable": false,
+            "default": "false",
+            "unique": false
+          },
+          {
+            "name": "replay_config",
+            "alias": "replayConfig",
+            "type": "Json",
+            "nullable": true,
+            "unique": false
+          }
+        ]
+      },
+      {
+        "name": "website_event",
+        "alias": "WebsiteEvent",
+        "note": "One page view or custom event in a session.",
+        "indexes": 14,
+        "columns": [
+          {
+            "name": "event_id",
+            "alias": "id",
+            "type": "uuid",
+            "nullable": false,
+            "key": "pk",
+            "unique": false
+          },
+          {
+            "name": "website_id",
+            "alias": "websiteId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "session_id",
+            "alias": "sessionId",
+            "type": "uuid",
+            "nullable": false,
+            "key": "fk",
+            "unique": false,
+            "ref": "session.session_id"
+          },
+          {
+            "name": "visit_id",
+            "alias": "visitId",
+            "type": "uuid",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "created_at",
+            "alias": "createdAt",
+            "type": "timestamptz(6)",
+            "nullable": true,
+            "default": "now()",
+            "unique": false
+          },
+          {
+            "name": "url_path",
+            "alias": "urlPath",
+            "type": "varchar(500)",
+            "nullable": false,
+            "unique": false
+          },
+          {
+            "name": "url_query",
+            "alias": "urlQuery",
+            "type": "varchar(500)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "utm_source",
+            "alias": "utmSource",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "utm_medium",
+            "alias": "utmMedium",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "utm_campaign",
+            "alias": "utmCampaign",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "utm_content",
+            "alias": "utmContent",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "utm_term",
+            "alias": "utmTerm",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "referrer_path",
+            "alias": "referrerPath",
+            "type": "varchar(500)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "referrer_query",
+            "alias": "referrerQuery",
+            "type": "varchar(500)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "referrer_domain",
+            "alias": "referrerDomain",
+            "type": "varchar(500)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "page_title",
+            "alias": "pageTitle",
+            "type": "varchar(500)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "gclid",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "fbclid",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "msclkid",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "ttclid",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "li_fat_id",
+            "alias": "lifatid",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "twclid",
+            "type": "varchar(255)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "event_type",
+            "alias": "eventType",
+            "type": "integer",
+            "nullable": false,
+            "default": "1",
+            "unique": false,
+            "note": "1 by default (a page view)."
+          },
+          {
+            "name": "event_name",
+            "alias": "eventName",
+            "type": "varchar(50)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "tag",
+            "type": "varchar(50)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "hostname",
+            "type": "varchar(100)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "lcp",
+            "type": "decimal(10, 1)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "inp",
+            "type": "decimal(10, 1)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "cls",
+            "type": "decimal(10, 4)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "fcp",
+            "type": "decimal(10, 1)",
+            "nullable": true,
+            "unique": false
+          },
+          {
+            "name": "ttfb",
+            "type": "decimal(10, 1)",
+            "nullable": true,
+            "unique": false
+          }
+        ]
+      }
+    ],
+    "enums": [],
+    "compare": "v3.4.1",
+    "changes": [
+      {
+        "level": "added",
+        "table": "error_event",
+        "what": "New table, 19 columns"
+      },
+      {
+        "level": "added",
+        "table": "error_issue",
+        "what": "New table, 8 columns"
+      },
+      {
+        "level": "added",
+        "table": "error_rate_limit",
+        "what": "New table, 3 columns"
+      }
+    ]
+  }
+}

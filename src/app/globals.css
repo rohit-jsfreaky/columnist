@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/* Columnist: a newspaper for your database. White paper, black ink, serif heads, mono types, green for keys. */
+:root {
+  --paper: #ffffff;
+  --wash: #f5f6f7;
+  --ink: #14171c;
+  --ink-2: #3a3f47;
+  --muted: #646a74;
+  --faint: #9aa0a9;
+  --line: #e3e5e9;
+  --rule: #c9cdd3;
+  --green: #0b6b50;
+  --green-soft: #e3f1ec;
+  --red: #b42318;
+  --red-soft: #fdecea;
+  --amber: #8a5300;
+  --amber-soft: #fbf0dc;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-wash: var(--wash);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-rule: var(--rule);
+  --color-green: var(--green);
+  --color-green-soft: var(--green-soft);
+  --color-red: var(--red);
+  --color-red-soft: var(--red-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-sans: var(--font-plex), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), Menlo, monospace;
+}
+
+html { -webkit-font-smoothing: antialiased; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-plex), "Helvetica Neue", Arial, sans-serif; }
+::selection { background: #c9e7dc; }
+
+@layer components {
+  .kicker { font-family: var(--font-plex-mono), Menlo, monospace; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 4px; font-weight: 500; font-size: 14px; padding: 8px 14px; white-space: nowrap; transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease; }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-ink { background: var(--ink); color: #fff; }
+  .btn-ink:hover:not(:disabled) { background: #2b3038; }
+  .btn-line { background: var(--paper); color: var(--ink); border: 1px solid var(--rule); }
+  .btn-line:hover:not(:disabled) { border-color: var(--ink); }
+  .input { width: 100%; background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 7px 10px; font-size: 13.5px; outline: none; transition: border-color 120ms ease, box-shadow 120ms ease; }
+  .input:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgb(20 23 28 / 0.08); }
+  .note { width: 100%; background: transparent; border: 1px solid transparent; border-radius: 3px; padding: 4px 6px; font-size: 13px; outline: none; }
+  .note:hover { border-color: var(--line); }
+  .note:focus { border-color: var(--ink); background: var(--paper); }
+  .note::placeholder { color: var(--faint); }
+  .dots { background-image: radial-gradient(var(--rule) 1px, transparent 1px); background-size: 22px 22px; }
+  .scroll-thin { scrollbar-width: thin; scrollbar-color: var(--rule) transparent; }
+}
