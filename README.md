@@ -9,6 +9,8 @@ file. Columnist writes three things from it:
 
 Built with [Hyper Elements](https://github.com/hyper-elements/hyper-elements) for the Hyper Elements Template Challenge.
 
+**Live:** https://columnist.rohitkashyapmrt.workers.dev
+
 ![Columnist reading Umami's real Prisma schema: 29 tables as a diagram](media/diagram-view.png)
 
 ## Why this exists
@@ -66,8 +68,8 @@ PostgreSQL's syntax. The diagram draws the 40 most connected tables.
 
 ## How Hyper Elements is used
 
-The three outputs are **Hyper Elements templates** in `templates/`. The app renders them in a route handler
-(`src/app/api/render/route.ts`), and the CLI renders the same files.
+The three outputs are **Hyper Elements templates** in `templates/`. The app renders them in the browser
+(`src/lib/render-route.ts`, so the site runs on Cloudflare with no render server), and the CLI renders the same files.
 
 - **Typed fields with rules** (`templates/_shared/doc.tsx`): a list of 1 to 150 tables, each a list of 1 to 150
   columns. A key is one of `pk`, `fk` or `pk fk`, a reference must look like `table.column`, and a change is
@@ -102,7 +104,7 @@ npm run check          # check the three templates with their example
 npm run docs           # docs/umami.json → out/docs/ (dictionary PDF, change email, diagram PNG)
 npm run sample         # rebuild the sample from public/samples/
 npm run preview:email  # the email as each email client draws it
-npm run build && npm start
+npm run build && npx wrangler dev   # the static site, served the way Cloudflare does
 ```
 
 ## Project layout
